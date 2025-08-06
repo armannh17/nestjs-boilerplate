@@ -1,3 +1,10 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class LoginUserResDto {
-  constructor(public readonly challengeCode: string) {}
+  @ApiProperty()
+  public readonly challengeCode: string;
+
+  constructor(challengeCode: string) {
+    this.challengeCode = challengeCode;
+  }
 }

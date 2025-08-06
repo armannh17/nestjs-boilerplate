@@ -15,6 +15,7 @@ export class UserService {
   ) {}
 
   public async loginUser(dto: LoginUserReqDto): Promise<LoginUserResDto> {
+    //login the user
     const user = await this.commandBus.execute(new LoginUserCommand(dto.walletAddress));
 
     await this.appUow.flush();
