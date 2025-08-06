@@ -30,9 +30,6 @@ export default tseslint.config(
 			"@typescript-eslint/no-explicit-any": "error",
 			"@typescript-eslint/no-floating-promises": "error",
 			"@typescript-eslint/no-unsafe-argument": "error",
-			indent: ["error", "tab"],
-			"max-len": ["off", { code: 120, tabWidth: 4 }],
-			"no-tabs": "off",
 		},
 	},
 );
