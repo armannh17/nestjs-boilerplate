@@ -4,13 +4,13 @@ import { UserEntity } from "../entity/user.entity";
 
 @Injectable()
 export class UserRepository {
-	constructor(private readonly entityManager: EntityManager) {}
+  constructor(private readonly entityManager: EntityManager) {}
 
-	public saveUser(user: UserEntity): void {
-		this.entityManager.persist(user);
-	}
+  public saveUser(user: UserEntity): void {
+    this.entityManager.persist(user);
+  }
 
-	public async findUserByWalletAddress(walletAddress: string): Promise<UserEntity | null> {
-		return await this.entityManager.findOne(UserEntity, { walletAddress });
-	}
+  public async findUserByWalletAddress(walletAddress: string): Promise<UserEntity | null> {
+    return await this.entityManager.findOne(UserEntity, { walletAddress });
+  }
 }

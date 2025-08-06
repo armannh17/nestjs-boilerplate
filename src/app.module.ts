@@ -7,15 +7,15 @@ import { SharedModule } from "./shared/shared.module";
 import { UserModule } from "./user/user.module";
 
 @Module({
-	imports: [
-		ConfigModule.forRoot({
-			isGlobal: true,
-			load: [validate],
-		}),
-		CqrsModule.forRoot({}),
-		DatabaseModule,
-		SharedModule,
-		UserModule,
-	],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [validate],
+    }),
+    CqrsModule.forRoot({}),
+    DatabaseModule,
+    SharedModule,
+    UserModule,
+  ],
 })
 export class AppModule {}

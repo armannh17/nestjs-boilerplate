@@ -7,21 +7,21 @@ import { UserRepository } from "../repository/user.repository";
 
 @CommandHandler(LoginUserCommand)
 export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
-	constructor(
-		private readonly cryptoHelper: CryptoHelper,
-		private readonly userRepository: UserRepository,
-		private readonly commandBus: CommandBus,
-	) {}
+  constructor(
+    private readonly cryptoHelper: CryptoHelper,
+    private readonly userRepository: UserRepository,
+    private readonly commandBus: CommandBus,
+  ) {}
 
-	public async execute(command: LoginUserCommand): Promise<UserEntity> {
-		const user = await this.userRepository.findUserByWalletAddress(command.walletAddress);
+  public async execute(command: LoginUserCommand): Promise<UserEntity> {
+    const user = await this.userRepository.findUserByWalletAddress(command.walletAddress);
 
-		if (!user) {
-			return await this.commandBus.execute(new RegisterUserCommand(command.walletAddress));
-		}
+    if (!user) {
+      return await this.commandBus.execute(new RegisterUserCommand(command.walletAddress));
+    }
 
-		user.challengeCode = this.cryptoHelper.generateChallengeCode();
+    user.challengeCode = this.cryptoHelper.generateChallengeCode();
 
-		return user;
-	}
+    return user;
+  }
 }

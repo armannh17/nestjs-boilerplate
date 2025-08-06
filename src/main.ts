@@ -8,33 +8,33 @@ import { AppConfig } from "./config/config/app.config";
 import { swaggerConfig } from "./config/config/swagger.config";
 
 async function bootstrap() {
-	//make the application
-	const app = await NestFactory.create<INestApplication<NestExpressApplication>>(AppModule);
+  //make the application
+  const app = await NestFactory.create<INestApplication<NestExpressApplication>>(AppModule);
 
-	//enable validation
-	app.useGlobalPipes(
-		new ValidationPipe({
-			transform: true,
-			whitelist: true,
-			always: true,
-		}),
-	);
+  //enable validation
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      always: true,
+    }),
+  );
 
-	//setup swagger
-	const documentFactory = () => SwaggerModule.createDocument(app, swaggerConfig);
+  //setup swagger
+  const documentFactory = () => SwaggerModule.createDocument(app, swaggerConfig);
 
-	SwaggerModule.setup("swagger", app, documentFactory);
+  SwaggerModule.setup("swagger", app, documentFactory);
 
-	//enable hooks
-	app.enableVersioning();
-	app.enableShutdownHooks();
+  //enable hooks
+  app.enableVersioning();
+  app.enableShutdownHooks();
 
-	//get the server config
-	const configService = app.get(ConfigService);
-	const serverConfig = configService.getOrThrow<AppConfig["server"]>("server");
+  //get the server config
+  const configService = app.get(ConfigService);
+  const serverConfig = configService.getOrThrow<AppConfig["server"]>("server");
 
-	//start the application
-	await app.listen(serverConfig.port);
+  //start the application
+  await app.listen(serverConfig.port);
 }
 
 bootstrap().catch((e) => console.error(e));

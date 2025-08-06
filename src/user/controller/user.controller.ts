@@ -6,13 +6,13 @@ import { UserService } from "../service/user.service";
 
 @Controller({ path: "/users", version: "1" })
 export class UserController {
-	constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
-	@Post("/login")
-	@HttpCode(HttpStatus.OK)
-	public async loginUser(@Body() dto: LoginUserReqDto): Promise<ResponseDto<LoginUserResDto>> {
-		const res = await this.userService.loginUser(dto);
+  @Post("/login")
+  @HttpCode(HttpStatus.OK)
+  public async loginUser(@Body() dto: LoginUserReqDto): Promise<ResponseDto<LoginUserResDto>> {
+    const res = await this.userService.loginUser(dto);
 
-		return new ResponseDto(HttpStatus.OK, "successful", res);
-	}
+    return new ResponseDto(HttpStatus.OK, "successful", res);
+  }
 }

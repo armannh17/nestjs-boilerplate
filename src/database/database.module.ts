@@ -3,6 +3,6 @@ import { Global, Module } from "@nestjs/common";
 
 @Global()
 @Module({
-	imports: [MikroOrmModule.forRoot()],
+  imports: [MikroOrmModule.forRoot()],
 })
 export class DatabaseModule {}

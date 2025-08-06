@@ -8,17 +8,17 @@ import { UserMapper } from "../mapper/user.mapper";
 
 @Injectable()
 export class UserService {
-	constructor(
-		private readonly appUow: AppUow,
-		private readonly userMapper: UserMapper,
-		private readonly commandBus: CommandBus,
-	) {}
+  constructor(
+    private readonly appUow: AppUow,
+    private readonly userMapper: UserMapper,
+    private readonly commandBus: CommandBus,
+  ) {}
 
-	public async loginUser(dto: LoginUserReqDto): Promise<LoginUserResDto> {
-		const user = await this.commandBus.execute(new LoginUserCommand(dto.walletAddress));
+  public async loginUser(dto: LoginUserReqDto): Promise<LoginUserResDto> {
+    const user = await this.commandBus.execute(new LoginUserCommand(dto.walletAddress));
 
-		await this.appUow.flush();
+    await this.appUow.flush();
 
-		return this.userMapper.mapLoginUserResult(user.challengeCode);
-	}
+    return this.userMapper.mapLoginUserResult(user.challengeCode);
+  }
 }

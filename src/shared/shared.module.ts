@@ -4,7 +4,7 @@ import { CryptoHelper } from "./helper/crypto.helper";
 
 @Global()
 @Module({
-	providers: [AppUow, CryptoHelper],
-	exports: [AppUow, CryptoHelper],
+  providers: [AppUow, CryptoHelper],
+  exports: [AppUow, CryptoHelper],
 })
 export class SharedModule {}

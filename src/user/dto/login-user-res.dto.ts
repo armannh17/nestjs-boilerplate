@@ -1,3 +1,3 @@
 export class LoginUserResDto {
-	constructor(public readonly challengeCode: string) {}
+  constructor(public readonly challengeCode: string) {}
 }
