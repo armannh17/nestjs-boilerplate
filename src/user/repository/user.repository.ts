@@ -13,4 +13,8 @@ export class UserRepository {
   public async findUserByWalletAddress(walletAddress: string): Promise<UserEntity | null> {
     return await this.entityManager.findOne(UserEntity, { walletAddress });
   }
+
+  public async findUserByReferralCode(referralCode: string): Promise<UserEntity | null> {
+    return await this.entityManager.findOne(UserEntity, { referralCode });
+  }
 }

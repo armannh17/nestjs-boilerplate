@@ -52,6 +52,25 @@
           "nullable": false,
           "length": 255,
           "mappedType": "string"
+        },
+        "referral_code": {
+          "name": "referral_code",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "referrer_id": {
+          "name": "referrer_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
         }
       },
       "name": "user",
@@ -67,7 +86,17 @@
         }
       ],
       "checks": [],
-      "foreignKeys": {},
+      "foreignKeys": {
+        "user_referrer_id_foreign": {
+          "constraintName": "user_referrer_id_foreign",
+          "columnNames": ["referrer_id"],
+          "localTableName": "public.user",
+          "referencedColumnNames": ["id"],
+          "referencedTableName": "public.user",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      },
       "nativeEnums": {}
     }
   ],

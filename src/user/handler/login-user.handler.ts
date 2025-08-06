@@ -17,7 +17,9 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
     const user = await this.userRepository.findUserByWalletAddress(command.walletAddress);
 
     if (!user) {
-      return await this.commandBus.execute(new RegisterUserCommand(command.walletAddress));
+      return await this.commandBus.execute(
+        new RegisterUserCommand(command.walletAddress, command.referralCode),
+      );
     }
 
     user.challengeCode = this.cryptoHelper.generateChallengeCode();

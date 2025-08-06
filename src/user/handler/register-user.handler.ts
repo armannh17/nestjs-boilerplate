@@ -1,8 +1,9 @@
+import { NotFoundException } from "@nestjs/common";
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
+import { CryptoHelper } from "src/shared/helper/crypto.helper";
 import { RegisterUserCommand } from "../command/register-user.command";
 import { UserEntity } from "../entity/user.entity";
 import { UserRepository } from "../repository/user.repository";
-import { CryptoHelper } from "src/shared/helper/crypto.helper";
 
 @CommandHandler(RegisterUserCommand)
 export class RegisterUserHandler implements ICommandHandler<RegisterUserCommand> {
@@ -16,9 +17,22 @@ export class RegisterUserHandler implements ICommandHandler<RegisterUserCommand>
 
     user.walletAddress = command.walletAddress;
     user.challengeCode = this.cryptoHelper.generateChallengeCode();
+    user.referralCode = this.cryptoHelper.generateReferralCode();
+
+    user.referrer = command.referralCode ? await this.getReferrer(command.referralCode) : undefined;
 
     this.userRepository.saveUser(user);
 
     return user;
+  }
+
+  private async getReferrer(referralCode: string): Promise<UserEntity> {
+    const referrer = await this.userRepository.findUserByReferralCode(referralCode);
+
+    if (!referrer) {
+      throw new NotFoundException("referral does not exist");
+    }
+
+    return referrer;
   }
 }
