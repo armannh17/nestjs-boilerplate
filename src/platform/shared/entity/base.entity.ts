@@ -3,10 +3,10 @@ import { ObjectFactory } from "../factory/object.factory";
 
 export abstract class BaseEntity {
   @PrimaryKey({ type: "uuid", name: "id" })
-  public readonly id: string;
+  public id: string;
 
   @Property({ type: "datetime", name: "created_at", onCreate: () => new Date() })
-  public readonly createdAt: Date;
+  public createdAt: Date;
 
   @Property({
     type: "datetime",
@@ -14,7 +14,7 @@ export abstract class BaseEntity {
     onCreate: () => new Date(),
     onUpdate: () => new Date(),
   })
-  public readonly updatedAt: Date;
+  public updatedAt: Date;
 
   constructor() {
     this.id = ObjectFactory.makeId();

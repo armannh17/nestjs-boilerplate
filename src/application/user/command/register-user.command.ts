@@ -1,7 +1,7 @@
 import { Command } from "@nestjs/cqrs";
-import { UserEntity } from "../entity/user.entity";
+import { UserDomain } from "../domain/user.domain";
 
-export class RegisterUserCommand extends Command<UserEntity> {
+export class RegisterUserCommand extends Command<UserDomain> {
   constructor(
     public readonly walletAddress: string,
     public readonly referralCode?: string,

@@ -1,9 +1,9 @@
 import { ObjectFactory } from "../factory/object.factory";
 
 export abstract class BaseDomain {
-  public readonly id: string;
-  public readonly createdAt: Date;
-  public readonly updatedAt: Date;
+  public id: string;
+  public createdAt: Date;
+  public updatedAt: Date;
 
   constructor() {
     this.id = ObjectFactory.makeId();
