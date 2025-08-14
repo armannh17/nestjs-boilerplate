@@ -4,8 +4,8 @@ import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { SwaggerModule } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
-import { AppConfig } from "./config/config/app.config";
-import { swaggerConfig } from "./config/config/swagger.config";
+import { AppConfig } from "./platform/config/config/app.config";
+import { swaggerConfig } from "./platform/config/config/swagger.config";
 
 async function bootstrap() {
   //make the application

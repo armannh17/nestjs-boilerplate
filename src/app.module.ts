@@ -1,12 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { CqrsModule } from "@nestjs/cqrs";
-import { validate } from "./config/validator/config.validator";
-import { CoreModule } from "./core/core.module";
-import { DatabaseModule } from "./database/database.module";
-import { SharedModule } from "./shared/shared.module";
-import { UserModule } from "./user/user.module";
-import { ContentTypeMiddleware } from "./core/middleware/content-type.middleware";
+import { UserModule } from "./application/user/user.module";
+import { validate } from "./platform/config/validator/config.validator";
+import { CoreModule } from "./platform/core/core.module";
+import { ContentTypeMiddleware } from "./platform/core/middleware/content-type.middleware";
+import { DatabaseModule } from "./platform/database/database.module";
+import { SharedModule } from "./platform/shared/shared.module";
 
 @Module({
   imports: [
