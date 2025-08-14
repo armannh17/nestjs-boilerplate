@@ -1,7 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-
-export class ReferralNotFoundException extends HttpException {
+export class ReferralNotFoundException extends Error {
   constructor() {
-    super("referral does not exist", HttpStatus.BAD_REQUEST);
+    super("referral does not exist");
   }
 }

@@ -1,7 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-
-export class InvalidCredentialException extends HttpException {
+export class InvalidCredentialException extends Error {
   constructor() {
-    super("invalid credentials provided", HttpStatus.UNAUTHORIZED);
+    super("invalid credentials provided");
   }
 }

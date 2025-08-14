@@ -10,6 +10,8 @@ import {
 import { JsonWebTokenError, TokenExpiredError } from "@nestjs/jwt";
 import { Response } from "express";
 import { TimeoutError } from "rxjs";
+import { InvalidCredentialException } from "src/application/user/exception/invalid-credential.exception";
+import { ReferralNotFoundException } from "src/application/user/exception/referral-not-found.exception";
 import { ResponseDto } from "src/platform/shared/dto/response.dto";
 
 @Catch()
@@ -20,7 +22,14 @@ export class AppExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response>();
 
-    //check for auth error
+    if (exception instanceof ReferralNotFoundException) {
+      return this.handleDomainError(res, HttpStatus.NOT_FOUND, exception.message);
+    }
+
+    if (exception instanceof InvalidCredentialException) {
+      return this.handleDomainError(res, HttpStatus.UNAUTHORIZED, exception.message);
+    }
+
     if (
       exception instanceof TokenExpiredError ||
       exception instanceof JsonWebTokenError ||
@@ -29,23 +38,23 @@ export class AppExceptionFilter implements ExceptionFilter {
       return this.handleUnauthorizedError(res);
     }
 
-    //check for bad request error
     if (exception instanceof BadRequestException) {
       return this.handleWrongInutError(res);
     }
 
-    //check for http error
     if (exception instanceof HttpException) {
       return this.handleHttpError(exception, res);
     }
 
-    //check for timeout error
     if (exception instanceof TimeoutError) {
       return this.handleTimeoutError(res);
     }
 
-    //unknown error, log it and return internal server error
     this.handleUnknownError(exception, res);
+  }
+
+  private handleDomainError(res: Response, status: HttpStatus, message: string): void {
+    res.status(status).json(new ResponseDto(status, message, null));
   }
 
   private handleUnauthorizedError(res: Response): void {
