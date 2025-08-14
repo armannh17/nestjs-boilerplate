@@ -22,14 +22,6 @@ export class AppExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response>();
 
-    if (exception instanceof ReferralNotFoundException) {
-      return this.handleDomainError(res, HttpStatus.NOT_FOUND, exception.message);
-    }
-
-    if (exception instanceof InvalidCredentialException) {
-      return this.handleDomainError(res, HttpStatus.UNAUTHORIZED, exception.message);
-    }
-
     if (
       exception instanceof TokenExpiredError ||
       exception instanceof JsonWebTokenError ||
@@ -48,6 +40,14 @@ export class AppExceptionFilter implements ExceptionFilter {
 
     if (exception instanceof TimeoutError) {
       return this.handleTimeoutError(res);
+    }
+
+    if (exception instanceof ReferralNotFoundException) {
+      return this.handleDomainError(res, HttpStatus.NOT_FOUND, exception.message);
+    }
+
+    if (exception instanceof InvalidCredentialException) {
+      return this.handleDomainError(res, HttpStatus.UNAUTHORIZED, exception.message);
     }
 
     this.handleUnknownError(exception, res);
